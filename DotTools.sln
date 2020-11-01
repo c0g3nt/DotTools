@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SqlDataTools.Model", "Microsoft.SqlDataTools.Model\Microsoft.SqlDataTools.Model.csproj", "{8473AD10-D062-4336-A270-4C051D75750E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8473AD10-D062-4336-A270-4C051D75750E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8473AD10-D062-4336-A270-4C051D75750E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8473AD10-D062-4336-A270-4C051D75750E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8473AD10-D062-4336-A270-4C051D75750E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1F08A1A-0889-479F-8AB4-111CBED411E6}
+	EndGlobalSection
+EndGlobal
