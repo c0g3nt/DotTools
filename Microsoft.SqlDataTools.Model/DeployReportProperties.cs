@@ -2,7 +2,7 @@
 
 namespace Microsoft.SqlDataTools.Model
 {
-    public class DeployReportProperties
+    public class DeployReportProperties : ISqlPackageProperties
     {
         /// <summary>
         /// Specifies additional deployment contributor arguments for the deployment contributors. This should be a semi-colon delimited list of values.

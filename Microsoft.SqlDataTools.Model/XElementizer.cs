@@ -5,23 +5,31 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Reflection;
+using System.Collections;
+
 namespace Microsoft.SqlDataTools.Model
 {
-    static class XElementizer
+    public static class XElementizer
     {
-        static XDocument GetDocument(DeployReportParameters deployReportParameters)
+        public static XDocument GetDocument(DeployReportParameters deployReportParameters)
         {
             if (deployReportParameters == null)
                 return null;
 
-            XDocument xdoc = new XDocument(new XDeclaration("1.0", "utf-8", null));
-            XElement root = xdoc.Root;
-            xdoc.Root.Name = "Project";
-           
-            XAttribute toolsversAttr = new XAttribute(XName.Get(nameof(deployReportParameters.ToolsVersion)),deployReportParameters.ToolsVersion);
+            XDocument xdoc = 
+                new XDocument(
+                    new XDeclaration("1.0", "utf-8", null));
+
+            XElement root = new XElement(XName.Get("Project"));
+
+            xdoc.Add(root);
+
+            XAttribute toolsversAttr =
+                new XAttribute(
+                    XName.Get(nameof(deployReportParameters.ToolsVersion)),
+                    deployReportParameters.ToolsVersion);
+
             root.Add(toolsversAttr);
-            XAttribute xmlnsAttr = new XAttribute(XName.Get("xmlns"), "http://schemas.microsoft.com/developer/msbuild/2003");
-            root.Add(xmlnsAttr);
 
             XElement propgroup = new XElement(XName.Get("PropertyGroup"));
             root.Add(propgroup);
@@ -48,7 +56,13 @@ namespace Microsoft.SqlDataTools.Model
         {
             if (variables == null)
                 return XElement.EmptySequence;
-            return variables.Select(variab => new XElement(XName.Get(variab.Name), variab.Value));
+            return variables.Select(variab =>
+            {
+                var elem = new XElement(XName.Get("SqlCmdVariable"));
+                elem.Add(new XAttribute(XName.Get("Include"), variab.Name));
+                elem.Add(new XElement(XName.Get("Value"), variab.Value));
+                return elem;
+            });
 
         }
         private static IEnumerable<XElement> PropertiesToXElements<T>(T input)
@@ -65,17 +79,28 @@ namespace Microsoft.SqlDataTools.Model
                      DefaultValueAttr = prop.GetCustomAttribute<DefaultValueAttribute>(),
                      InputValue = prop.GetValue(input)
                  }).
-                 Where(elem => elem.DefaultValueAttr == null &&
-                 IsTypeDefault(elem.PropType, elem.InputValue) ||
-                 Equals(elem.DefaultValueAttr.Value, elem.InputValue)).
-                 Select(elem=> new XElement(XName.Get(elem.Name),elem.InputValue));
+                 Where(elem => (elem.DefaultValueAttr == null &&
+                 !IsTypeDefault(elem.PropType, elem.InputValue)) ||
+                 (elem.DefaultValueAttr != null &&
+                 !Equals(elem.DefaultValueAttr.Value, elem.InputValue))).
+                 Select(elem=> new XElement(XName.Get(elem.Name),elem.InputValue)).
+                 Where(elem=> elem.IsEmpty == false);
 
         }
         private static bool IsTypeDefault(Type type,object value)
         {
             if (type == typeof(string))
                 return string.IsNullOrEmpty(value as string);
-            else if (type.IsByRef && value == null)
+            else if(type.IsPrimitive || type.IsValueType)
+                return Activator.CreateInstance(type).Equals(value);
+            else if (typeof(IEnumerable).IsAssignableFrom(type))
+                return value == null || 
+                    (value as IEnumerable).GetEnumerator().MoveNext();
+            else if (type.IsAbstract)
+                return value == null;
+            else if (type.IsClass == true ||
+                    type.IsInterface == true &&
+                    value == null)
                 return true;
             else
                 return Activator.CreateInstance(type).Equals(value);
