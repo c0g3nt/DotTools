@@ -21,16 +21,16 @@ namespace Microsoft.SqlDataTools.Model.Tests
                 new SqlCmdVariable("ExcludedModules","NONE")
             };
 
-            var deployparams = new DeployReportParameters()
+             ISqlPackageParameters deployparams = new DeployReportParameters()
             {
                 TargetServerName = "DEV20\\MAININSTANCE",
                 TargetDatabaseName = "Hospital",
-                Properties = deployprops,
+                DeployReportProperties = deployprops,
                 Variables = variables
             };
-            var doc = XElementizer.GetDocument(deployparams);
+            var doc = (deployparams as ISqlPackageParameters).AsXDocument();
             var outputfile = "output.xml";
-            doc.Save(outputfile);
+            (deployparams as ISqlPackageParameters).SaveXml(outputfile);
             System.Diagnostics.Process.Start(
                 "C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
                 outputfile);

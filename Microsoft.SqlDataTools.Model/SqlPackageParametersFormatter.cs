@@ -9,9 +9,9 @@ using System.Collections;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    public static class XElementizer
+   public  static class SqlPackageParametersFormatter
     {
-        public static XDocument GetDocument(DeployReportParameters deployReportParameters)
+        public static XDocument AsXDocument(ISqlPackageParameters deployReportParameters, FormattingOptions options)
         {
             if (deployReportParameters == null)
                 return null;
@@ -36,14 +36,14 @@ namespace Microsoft.SqlDataTools.Model
 
             HashSet<string> exclusions = new HashSet<string>(new string[]
             {
-                nameof(DeployReportParameters.ToolsVersion),
-                nameof(DeployReportParameters.Properties),
-                nameof(DeployReportParameters.Variables)
+                nameof(ISqlPackageParameters.ToolsVersion),
+                nameof(ISqlPackageParameters.Properties),
+                nameof(ISqlPackageParameters.Variables)
             });
 
-            propgroup.Add(PropertiesToXElements<DeployReportParameters>(deployReportParameters).
+            propgroup.Add(PropertiesToXElements(deployReportParameters).
                 Where(elem => !exclusions.Contains(elem.Name.ToString())));
-            propgroup.Add(PropertiesToXElements<DeployReportProperties>(deployReportParameters.Properties));
+            propgroup.Add(PropertiesToXElements(deployReportParameters.Properties));
 
             XElement itemgroup = new XElement(XName.Get("ItemGroup"));
             root.Add(itemgroup);
@@ -65,12 +65,12 @@ namespace Microsoft.SqlDataTools.Model
             });
 
         }
-        private static IEnumerable<XElement> PropertiesToXElements<T>(T input)
+        private static IEnumerable<XElement> PropertiesToXElements(object input)
         {
             if (input == null)
                 return null;
 
-            return typeof(T).
+            return input.GetType().
                 GetProperties().
                  Select(prop => new
                  {

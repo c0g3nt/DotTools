@@ -5,9 +5,10 @@ using System.Xml.Linq;
 namespace Microsoft.SqlDataTools.Model
 {
 
-    public partial class DeployReportParameters : ISqlPackageParameter
+    public partial class DeployReportParameters : ISqlPackageParameters
     {
         public string ToolsVersion { get; set; } = "Current";
+
         /// <summary>
         /// Specifies the action to be performed.
         /// </summary>
@@ -68,8 +69,13 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies a name value pair for an action-specific property; {PropertyName}={Value}. Refer to the help for a specific action to see that action's property names. Example: sqlpackage.exe /Action:DeployReport /?.")]
 
-        public DeployReportProperties Properties { get; set; }
+        public DeployReportProperties DeployReportProperties { get; set; }
 
+        ISqlPackageProperties ISqlPackageParameters.Properties
+        {
+            get => DeployReportProperties;
+            set => DeployReportProperties = value as DeployReportProperties;
+        }
         /// <summary>
         /// Specifies whether detailed feedback is suppressed. Defaults to False.
         /// </summary>
@@ -222,7 +228,6 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies a name value pair for an action-specific variable;{ VariableName}={ Value}. The DACPAC file contains the list of valid SQLCMD variables. An error results if a value is not provided for every variable.")]
         public IEnumerable<SqlCmdVariable> Variables { get; set; }
-
-
+  
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    interface ISqlPackageProperties
+    public interface ISqlPackageProperties
     {
     }
 }
