@@ -10,14 +10,9 @@ namespace Microsoft.SqlDataTools.Model
         string ToolsVersion { get; set; } 
         ISqlPackageProperties Properties { get; set; }
         IEnumerable<SqlCmdVariable> Variables { get; set; }
-         XDocument AsXDocument(
-            FormattingOptions options = FormattingOptions.IgnoreDefaults) =>
-            SqlPackageParametersFormatter.AsXDocument(this, options);
 
-         void SaveXml(
-            string filename,
-            FormattingOptions options = FormattingOptions.IgnoreDefaults) =>
-            AsXDocument(options).Save(filename);
+
+  
     }
 
     [Flags]

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Microsoft.SqlDataTools.Model.Tests
 {
@@ -6,7 +7,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestAsXDocument()
         {
             var deployprops = new DeployReportProperties()
             {
@@ -28,12 +29,42 @@ namespace Microsoft.SqlDataTools.Model.Tests
                 DeployReportProperties = deployprops,
                 Variables = variables
             };
-            var doc = (deployparams as ISqlPackageParameters).AsXDocument();
+            var doc = deployparams.AsXDocument();
+          
             var outputfile = "output.xml";
-            (deployparams as ISqlPackageParameters).SaveXml(outputfile);
+
+            deployparams.SaveXml(outputfile);
+
             System.Diagnostics.Process.Start(
                 "C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
                 outputfile);
+        }
+
+        [TestMethod]
+        public void TestAsSqlCmdArgs()
+        {
+            var deployprops = new DeployReportProperties()
+            {
+                IncludeCompositeObjects = true,
+                DropConstraintsNotInSource = false,
+                DropObjectsNotInSource = true
+            };
+            var variables = new SqlCmdVariable[]
+            {
+                new SqlCmdVariable("Hospital","Hospital"),
+                new SqlCmdVariable("IncludedModules","ALL"),
+                new SqlCmdVariable("ExcludedModules","NONE")
+            };
+
+            ISqlPackageParameters deployparams = new DeployReportParameters()
+            {
+                TargetServerName = "DEV20\\MAININSTANCE",
+                TargetDatabaseName = "Hospital",
+                DeployReportProperties = deployprops,
+                Variables = variables
+            };
+            var cmdargs = (deployparams as ISqlPackageParameters).AsCommandLineArgs().ToList();
+            System.Diagnostics.Trace.WriteLine(string.Join(" ",cmdargs));
         }
     }
 }
