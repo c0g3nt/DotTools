@@ -11,6 +11,7 @@ namespace Microsoft.SqlDataTools.Model
     [Description("A SqlPackage.exe publish operation incrementally updates the schema of a target database to match the structure of a source database. Publishing a deployment package that contains user data for all or a subset of tables update the table data in addition to the schema. Data deployment overwrites the schema and data in existing tables of the target database. Data deployment will not change existing schema or data in the target database for tables not included in the deployment package.")]
     public class PublishParameters : ISqlPackageParameters
     {
+        public bool HasProfile { get; } = true;
         public string ToolsVersion { get; set; } = "Current";
         /// <summary>
         /// Specifies the action to be performed.

@@ -1,13 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Microsoft.SqlDataTools.Model
 {
 
-    public partial class DeployReportParameters : ISqlPackageParameters
+    public struct DeployReportParameters : ISqlPackageParameters
     {
-        public string ToolsVersion { get; set; } = "Current";
+        private string toolsVersion;
+        private int? maxParallelism;
+
+
+        private static readonly Dictionary<string, object> _defaultsDict =
+            new (string Key, object Value)[]
+            {
+                (nameof(ToolsVersion),"Current"),
+                (nameof(MaxParallelism),8),
+                (nameof(OverwriteFiles),true)
+            }.ToDictionary(elem => elem.Key, elem => elem.Value);
+
+        private static object GetDefault([System.Runtime.CompilerServices.CallerMemberName] string propName = null)
+        {
+            if (_defaultsDict.ContainsKey(propName))
+                return _defaultsDict[propName];
+            return null;
+        }
+        public string ToolsVersion { get => toolsVersion ?? GetDefault() as string; set => toolsVersion = value; }
 
         /// <summary>
         /// Specifies the action to be performed.
@@ -40,8 +60,8 @@ namespace Microsoft.SqlDataTools.Model
         /// Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8.
         /// </summary>
         [Description("Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8.")]
-        [DefaultValue(8)]
-        public int MaxParallelism { get; set; } = 8;
+        [DefaultValue(typeof(int?),"8")]
+        public int? MaxParallelism { get => maxParallelism ?? GetDefault() as int?; set => maxParallelism = value; }
 
         /// <summary>
         /// Specifies the file path where the output files are generated.
@@ -54,8 +74,8 @@ namespace Microsoft.SqlDataTools.Model
         /// Specifies if sqlpackage.exe should overwrite existing files. Specifying false causes sqlpackage.exe to abort action if an existing file is encountered. Default value is True.
         /// </summary>
         [Description("Specifies if sqlpackage.exe should overwrite existing files. Specifying false causes sqlpackage.exe to abort action if an existing file is encountered. Default value is True.")]
-        [DefaultValue(true)]
-        public bool OverwriteFiles { get; set; } = true;
+        [DefaultValue(typeof(bool?), "true")]
+        public bool? OverwriteFiles { get; set; }
 
         /// <summary>
         /// Specifies the file path to a DAC Publish Profile. The profile defines a collection of properties and variables to use when generating outputs.
@@ -73,8 +93,8 @@ namespace Microsoft.SqlDataTools.Model
 
         ISqlPackageProperties ISqlPackageParameters.Properties
         {
-            get => DeployReportProperties;
-            set => DeployReportProperties = value as DeployReportProperties;
+            get => (ISqlPackageProperties)DeployReportProperties;
+            set => DeployReportProperties = (DeployReportProperties)value;
         }
         /// <summary>
         /// Specifies whether detailed feedback is suppressed. Defaults to False.
@@ -228,6 +248,6 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies a name value pair for an action-specific variable;{ VariableName}={ Value}. The DACPAC file contains the list of valid SQLCMD variables. An error results if a value is not provided for every variable.")]
         public IEnumerable<SqlCmdVariable> Variables { get; set; }
-  
+
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using static Microsoft.SqlDataTools.Model.Extensions;
 
 namespace Microsoft.SqlDataTools.Model.Tests
 {
@@ -63,7 +64,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
                 DeployReportProperties = deployprops,
                 Variables = variables
             };
-            var cmdargs = (deployparams as ISqlPackageParameters).AsCommandLineArgs().ToList();
+            var cmdargs = (deployparams as ISqlPackageParameters).AsCommandLineArguments().ToList();
             System.Diagnostics.Trace.WriteLine(string.Join(" ",cmdargs));
         }
     }

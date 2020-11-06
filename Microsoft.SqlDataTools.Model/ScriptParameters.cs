@@ -11,6 +11,7 @@ namespace Microsoft.SqlDataTools.Model
     [Description("A SqlPackage.exe script action creates a Transact-SQL incremental update script that updates the schema of a target database to match the schema of a source database.")]
     public class ScriptParameters : ISqlPackageParameters
     {
+        public bool HasProfile { get; } = true;
         public string ToolsVersion { get; set; } = "Current";
 
         /// <summary>
