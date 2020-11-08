@@ -66,6 +66,8 @@ namespace Microsoft.SqlDataTools.Model
 
             return input.GetType().
                 GetProperties().
+                Where(p=> typeof(ISqlPackageProperties).IsAssignableFrom(p.PropertyType) == false && 
+                          typeof(IEnumerable<SqlCmdVariable>).IsAssignableFrom(p.PropertyType) == false).
                  Select(prop => new
                  {
                      Name = prop.Name,
@@ -137,12 +139,9 @@ namespace Microsoft.SqlDataTools.Model
                 Element("PropertyGroup").
                 Elements().
                 Select(elem =>
-                    string.Concat(
-                        "/",
-                        paramprops.Contains(elem.Name) ? "" : "p:",
-                        elem.Name.ToString(),
-                        "=",
-                        elem.Value)
+                    paramprops.Contains(elem.Name) ? 
+                    string.Concat("/", elem.Name.ToString(),":", elem.Value) :
+                    string.Concat("/p:", elem.Name.ToString(), "=", elem.Value)
                     )?.DefaultIfEmpty().
                     Concat(
                         doc.Root.Elements("ItemGroup").

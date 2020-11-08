@@ -9,30 +9,23 @@ namespace Microsoft.SqlDataTools.Model
 
     public struct DeployReportParameters : ISqlPackageParameters
     {
-        private string toolsVersion;
+
+        #region BackingFields
+        private bool? diagnostics;
         private int? maxParallelism;
+        private bool? overwriteFiles;
+        private bool? quiet;
+        private bool? sourceEncryptConnection;
+        private string toolsVersion;
+        #endregion
 
-
-        private static readonly Dictionary<string, object> _defaultsDict =
-            new (string Key, object Value)[]
-            {
-                (nameof(ToolsVersion),"Current"),
-                (nameof(MaxParallelism),8),
-                (nameof(OverwriteFiles),true)
-            }.ToDictionary(elem => elem.Key, elem => elem.Value);
-
-        private static object GetDefault([System.Runtime.CompilerServices.CallerMemberName] string propName = null)
-        {
-            if (_defaultsDict.ContainsKey(propName))
-                return _defaultsDict[propName];
-            return null;
-        }
-        public string ToolsVersion { get => toolsVersion ?? GetDefault() as string; set => toolsVersion = value; }
+        public string ToolsVersion { get => toolsVersion ?? "Current"; set => toolsVersion = value; }
 
         /// <summary>
         /// Specifies the action to be performed.
         /// </summary>
         [Description("Specifies the action to be performed.")]
+        [ShortForm("a")]
         public DacActionValue Action { get => DacActionValue.DeployReport; }
 
         /// <summary>
@@ -40,6 +33,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the token based authentication access token to use when connect to the target database.")]
         [DefaultValue(typeof(string), null)]
+        [ShortForm("at")]
         public string AccessToken { get; set; }
 
         /// <summary>
@@ -47,27 +41,31 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether diagnostic logging is output to the console. Defaults to False.")]
         [DefaultValue(false)]
-        public bool Diagnostics { get; set; }
+        [ShortForm("/d")]
+        public bool? Diagnostics { get => diagnostics ?? false; set => diagnostics = value; }
 
         /// <summary>
         /// Specifies a file to store diagnostic logs.
         /// </summary>
         [Description("Specifies a file to store diagnostic logs.")]
         [DefaultValue(typeof(string), null)]
+        [ShortForm("df")]
         public string DiagnosticsFile { get; set; }
 
         /// <summary>
         /// Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8.
         /// </summary>
         [Description("Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8.")]
-        [DefaultValue(typeof(int?),"8")]
-        public int? MaxParallelism { get => maxParallelism ?? GetDefault() as int?; set => maxParallelism = value; }
+        [DefaultValue(typeof(int?), "8")]
+        [ShortForm("mp")]
+        public int? MaxParallelism { get => maxParallelism ?? 8; set => maxParallelism = value; }
 
         /// <summary>
         /// Specifies the file path where the output files are generated.
         /// </summary>
         [Description("Specifies the file path where the output files are generated.")]
         [DefaultValue(typeof(string), null)]
+        [ShortForm("op")]
         public string OutputPath { get; set; }
 
         /// <summary>
@@ -75,20 +73,21 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies if sqlpackage.exe should overwrite existing files. Specifying false causes sqlpackage.exe to abort action if an existing file is encountered. Default value is True.")]
         [DefaultValue(typeof(bool?), "true")]
-        public bool? OverwriteFiles { get; set; }
+        [ShortForm("of")]
+        public bool? OverwriteFiles { get => overwriteFiles ?? true; set => overwriteFiles = value; }
 
         /// <summary>
         /// Specifies the file path to a DAC Publish Profile. The profile defines a collection of properties and variables to use when generating outputs.
         /// </summary>
         [Description("Specifies the file path to a DAC Publish Profile. The profile defines a collection of properties and variables to use when generating outputs.")]
         [DefaultValue(typeof(string), null)]
+        [ShortForm("pr")]
         public string Profile { get; set; }
 
         /// <summary>
         /// Specifies a name value pair for an action-specific property; {PropertyName}={Value}. Refer to the help for a specific action to see that action's property names. Example: sqlpackage.exe /Action:DeployReport /?.
         /// </summary>
         [Description("Specifies a name value pair for an action-specific property; {PropertyName}={Value}. Refer to the help for a specific action to see that action's property names. Example: sqlpackage.exe /Action:DeployReport /?.")]
-
         public DeployReportProperties DeployReportProperties { get; set; }
 
         ISqlPackageProperties ISqlPackageParameters.Properties
@@ -101,7 +100,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether detailed feedback is suppressed. Defaults to False.")]
         [DefaultValue(false)]
-        public bool Quiet { get; set; }
+        public bool? Quiet { get => quiet ?? false; set => quiet = value; }
 
         /// <summary>
         /// Specifies a valid SQL Server/Azure connection string to the source database. If this parameter is specified, it shall be used exclusively of all other source parameters.
@@ -122,7 +121,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies if SQL encryption should be used for the source database connection.")]
         [DefaultValue(false)]
-        public bool SourceEncryptConnection { get; set; }
+        public bool? SourceEncryptConnection { get => sourceEncryptConnection ?? false; set => sourceEncryptConnection = value; }
 
         /// <summary>
         /// Specifies a source file to be used as the source of action instead of a database. If this parameter is used, no other source parameter shall be valid.
@@ -157,7 +156,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether to use TLS to encrypt the source database connection and bypass walking the certificate chain to validate trust.")]
         [DefaultValue(typeof(bool?), null)]
-        public bool SourceTrustServerCertificate { get; set; }
+        public bool? SourceTrustServerCertificate { get; set; }
 
         /// <summary>
         /// For SQL Server Auth scenarios, defines the SQL Server user to use to access the source database.
