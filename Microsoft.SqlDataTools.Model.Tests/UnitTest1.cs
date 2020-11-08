@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using static Microsoft.SqlDataTools.Model.Extensions;
+using static Microsoft.SqlDataTools.Model.DefaultChecker;
 
 namespace Microsoft.SqlDataTools.Model.Tests
 {
@@ -10,7 +10,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
         [TestMethod]
         public void TestAsXDocument()
         {
-            var deployprops = new DeployReportProperties()
+            var deployprops = new DeploymentProperties()
             {
                 IncludeCompositeObjects = true,
                 DropConstraintsNotInSource = false,
@@ -27,7 +27,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
             {
                 TargetServerName = "DEV20\\MAININSTANCE",
                 TargetDatabaseName = "Hospital",
-                DeployReportProperties = deployprops,
+                Properties = deployprops,
                 Variables = variables
             };
             var doc = deployparams.AsXDocument();
@@ -44,7 +44,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
         [TestMethod]
         public void TestAsSqlCmdArgs()
         {
-            var deployprops = new DeployReportProperties()
+            var deployprops = new DeploymentProperties()
             {
                 IncludeCompositeObjects = true,
                 DropConstraintsNotInSource = false,
@@ -61,7 +61,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
             {
                 TargetServerName = "DEV20\\MAININSTANCE",
                 TargetDatabaseName = "Hospital",
-                DeployReportProperties = deployprops,
+                Properties = deployprops,
                 Variables = variables
             };
             var cmdargs = (deployparams as ISqlPackageParameters).AsCommandLineArguments().ToList();

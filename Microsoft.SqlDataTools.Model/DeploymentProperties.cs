@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    public class PublishProperties : ISqlPackageProperties
+    public class DeploymentProperties 
     {
-
         /// <summary>
         /// Specifies additional deployment contributor arguments for the deployment contributors. This should be a semi-colon delimited list of values.
         /// </summary>
         [Description("Specifies additional deployment contributor arguments for the deployment contributors. This should be a semi-colon delimited list of values.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string AdditionalDeploymentContributorArguments { get; set; }
 
         /// <summary>
@@ -20,6 +20,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies additional deployment contributors, which should run when the dacpac is deployed. This should be a semi-colon delimited list of fully qualified build contributor names or IDs.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string AdditionalDeploymentContributors { get; set; }
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies paths to load additional deployment contributors. This should be a semi-colon delimited list of values.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string AdditionalDeploymentContributorPaths { get; set; }
 
         /// <summary>
@@ -34,6 +36,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("This property is used by SqlClr deployment to cause any blocking assemblies to be dropped as part of the deployment plan. By default, any blocking/referencing assemblies will block an assembly update if the referencing assembly needs to be dropped.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? AllowDropBlockingAssemblies { get; set; }
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether to attempt the action despite incompatible SQL Server platforms.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? AllowIncompatiblePlatform { get; set; }
 
         /// <summary>
@@ -48,6 +52,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Do not block data motion on a table that has Row Level Security if this property is set to true. Default is false.")]
         [DefaultValue(false)]
+        [PropertyCmdArgument]
         public bool AllowUnsafeRowLevelSecurityDataMovement { get; set; }
 
         /// <summary>
@@ -55,6 +60,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Backups the database before deploying any changes.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? BackupDatabaseBeforeChanges { get; set; }
 
         /// <summary>
@@ -62,6 +68,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies that the publish episode should be terminated if there is a possibility of data loss resulting from the publish.operation.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool BlockOnPossibleDataLoss { get; set; } = true;
 
         /// <summary>
@@ -69,6 +76,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether to block updating a database whose schema no longer matches its registration or is unregistered.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool BlockWhenDriftDetected { get; set; } = true;
 
         /// <summary>
@@ -76,6 +84,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the command timeout in seconds when executing queries against SQL Server.")]
         [DefaultValue(60)]
+        [PropertyCmdArgument]
         public int CommandTimeout { get; set; } = 60;
 
         /// <summary>
@@ -83,6 +92,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether the declaration of SETVAR variables should be commented out in the generated publish script. You might choose to do this if you plan to specify the values on the command line when you publish by using a tool such as SQLCMD.EXE.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? CommentOutSetVarDeclarations { get; set; }
 
         /// <summary>
@@ -90,6 +100,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("This setting dictates how the database's collation is handled during deployment; by default the target database's collation will be updated if it does not match the collation specified by the source. When this option is set, the target database's (or server's) collation should be used.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? CompareUsingTargetCollation { get; set; }
 
         /// <summary>
@@ -97,6 +108,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether the target database should be updated or whether it should be dropped and re-created when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? CreateNewDatabase { get; set; }
 
         /// <summary>
@@ -104,6 +116,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Defines the edition of an Azure SQL Database.")]
         [DefaultValue(DatabaseEditionValue.Default)]
+        [PropertyCmdArgument]
         public DatabaseEditionValue DatabaseEdition { get; set; } = DatabaseEditionValue.Default;
 
         /// <summary>
@@ -111,6 +124,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the database lock timeout in seconds when executing queries against SQLServer. Use -1 to wait indefinitely.")]
         [DefaultValue(60)]
+        [PropertyCmdArgument]
         public int DatabaseLockTimeout { get; set; } = 60;
 
         /// <summary>
@@ -118,6 +132,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Defines the maximum size in GB of an Azure SQL Database.")]
         [DefaultValue(typeof(int?), null)]
+        [PropertyCmdArgument]
         public int? DatabaseMaximumSize { get; set; }
 
         /// <summary>
@@ -125,6 +140,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Defines the performance level of an Azure SQL Database such as\"P0\" or \"S1\".")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string DatabaseServiceObjective { get; set; }
 
         /// <summary>
@@ -132,6 +148,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("if true, the database is set to Single User Mode before deploying.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? DeployDatabaseInSingleUserMode { get; set; }
 
         /// <summary>
@@ -139,6 +156,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether Data Definition Language (DDL) triggers are disabled at the beginning of the publish process and re-enabled at the end of the publish action.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DisableAndReenableDdlTriggers { get; set; } = true;
 
         /// <summary>
@@ -146,6 +164,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("If true, Change Data Capture objects are not altered.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DoNotAlterChangeDataCaptureObjects { get; set; } = true;
 
         /// <summary>
@@ -153,13 +172,15 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether objects that are replicated are identified during verification.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DoNotAlterReplicatedObjects { get; set; } = true;
 
         /// <summary>
-        /// An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.
+        /// An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are  Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.
         /// </summary>
         [Description("An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string DoNotDropObjectType { get; set; }
 
         /// <summary>
@@ -167,6 +188,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("A semicolon-delimited list of object types that should not be dropped when DropObjectsNotInSource is true. Valid object type names are Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string DoNotDropObjectTypes { get; set; }
 
         /// <summary>
@@ -174,6 +196,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether constraints that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DropConstraintsNotInSource { get; set; } = true;
 
         /// <summary>
@@ -181,6 +204,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether DML triggers that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DropDmlTriggersNotInSource { get; set; } = true;
 
         /// <summary>
@@ -188,6 +212,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether extended properties that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DropExtendedPropertiesNotInSource { get; set; } = true;
 
         /// <summary>
@@ -195,6 +220,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether indexes that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DropIndexesNotInSource { get; set; } = true;
 
         /// <summary>
@@ -202,6 +228,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether objects that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database. This value takes precedence over DropExtendedProperties.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? DropObjectsNotInSource { get; set; }
 
         /// <summary>
@@ -209,6 +236,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether permissions that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish updates to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? DropPermissionsNotInSource { get; set; }
 
         /// <summary>
@@ -216,6 +244,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether role members that are not defined in the database snapshot (.dacpac) file will be dropped from the target database when you publish updates to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? DropRoleMembersNotInSource { get; set; }
 
         /// <summary>
@@ -223,6 +252,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether statistics that do not exist in the database snapshot (.dacpac) file will be dropped from the target database when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool DropStatisticsNotInSource { get; set; } = true;
 
         /// <summary>
@@ -230,6 +260,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("An object type that should be ignored during deployment. Valid object type names are Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string ExcludeObjectType { get; set; }
 
         /// <summary>
@@ -237,6 +268,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("A semicolon-delimited list of object types that should be ignored during deployment. Valid object type names are Aggregates, ApplicationRoles, Assemblies, AsymmetricKeys, BrokerPriorities, Certificates, ColumnEncryptionKeys, ColumnMasterKeys, Contracts, DatabaseRoles, DatabaseTriggers, Defaults, ExtendedProperties, ExternalDataSources, ExternalFileFormats, ExternalTables, Filegroups, FileTables, FullTextCatalogs, FullTextStoplists, MessageTypes, PartitionFunctions, PartitionSchemes, Permissions, Queues, RemoteServiceBindings, RoleMembership, Rules, ScalarValuedFunctions, SearchPropertyLists, SecurityPolicies, Sequences, Services, Signatures, StoredProcedures, SymmetricKeys, Synonyms, Tables, TableValuedFunctions, UserDefinedDataTypes, UserDefinedTableTypes, ClrUserDefinedTypes, Users, Views, XmlSchemaCollections, Audits, Credentials, CryptographicProviders, DatabaseAuditSpecifications, DatabaseScopedCredentials, Endpoints, ErrorMessages, EventNotifications, EventSessions, LinkedServerLogins, LinkedServers, Logins, Routes, ServerAuditSpecifications, ServerRoleMembership, ServerRoles, ServerTriggers.")]
         [DefaultValue(typeof(string), null)]
+        [PropertyCmdArgument]
         public string ExcludeObjectTypes { get; set; }
 
         /// <summary>
@@ -244,6 +276,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Automatically provides a default value when updating a table that contains data with a column that does not allow null values.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? GenerateSmartDefaults { get; set; }
 
         /// <summary>
@@ -251,6 +284,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the ANSI NULLS setting should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreAnsiNulls { get; set; } = true;
 
         /// <summary>
@@ -258,6 +292,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the Authorizer should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreAuthorizer { get; set; }
 
         /// <summary>
@@ -265,6 +300,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the column collations should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreColumnCollation { get; set; }
 
         /// <summary>
@@ -272,6 +308,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in table column order should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreColumnOrder { get; set; }
 
         /// <summary>
@@ -279,6 +316,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the comments should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreComments { get; set; }
 
         /// <summary>
@@ -286,6 +324,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the file path for the cryptographic provider should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreCryptographicProviderFilePath { get; set; } = true;
 
         /// <summary>
@@ -293,6 +332,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the order of Data Definition Language (DDL) triggers should be ignored or updated when you publish to a database or server.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreDdlTriggerOrder { get; set; }
 
         /// <summary>
@@ -300,6 +340,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the enabled or disabled state of Data Definition Language (DDL) triggers should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreDdlTriggerState { get; set; }
 
         /// <summary>
@@ -307,6 +348,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the default schema should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreDefaultSchema { get; set; }
 
         /// <summary>
@@ -314,6 +356,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the order of Data Manipulation Language (DML) triggers should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreDmlTriggerOrder { get; set; }
 
         /// <summary>
@@ -321,6 +364,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the enabled or disabled state of DML triggers should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreDmlTriggerState { get; set; }
 
         /// <summary>
@@ -328,6 +372,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the extended properties should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreExtendedProperties { get; set; }
 
         /// <summary>
@@ -335,6 +380,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the paths for files and log files should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreFileAndLogFilePath { get; set; } = true;
 
         /// <summary>
@@ -342,6 +388,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the placement of objects in FILEGROUPs should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreFilegroupPlacement { get; set; } = true;
 
         /// <summary>
@@ -349,6 +396,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the file sizes should be ignored or whether a warning should be issued when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreFileSize { get; set; } = true;
 
         /// <summary>
@@ -356,6 +404,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the fill factor for index storage should be ignored or whether a warning should be issued when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreFillFactor { get; set; } = true;
 
         /// <summary>
@@ -363,6 +412,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the file path for the full-text catalog should be ignored or whether a warning should be issued when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreFullTextCatalogFilePath { get; set; } = true;
 
         /// <summary>
@@ -370,6 +420,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the seed for an identity column should be ignored or updated when you publish updates to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreIdentitySeed { get; set; }
 
         /// <summary>
@@ -377,6 +428,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the increment for an identity column should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreIncrement { get; set; }
 
         /// <summary>
@@ -384,6 +436,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the index options should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreIndexOptions { get; set; }
 
         /// <summary>
@@ -391,6 +444,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the index padding should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreIndexPadding { get; set; } = true;
 
         /// <summary>
@@ -398,6 +452,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the casing of keywords should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreKeywordCasing { get; set; } = true;
 
         /// <summary>
@@ -405,6 +460,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the lock hints on indexes should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreLockHintsOnIndexes { get; set; }
 
         /// <summary>
@@ -412,6 +468,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the security identification number (SID) should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreLoginSids { get; set; } = true;
 
         /// <summary>
@@ -419,6 +476,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether the not for replication settings should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreNotForReplication { get; set; }
 
         /// <summary>
@@ -426,6 +484,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether an object's placement on a partition scheme should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreObjectPlacementOnPartitionScheme { get; set; } = true;
 
         /// <summary>
@@ -433,6 +492,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in partition schemes and functions should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnorePartitionSchemes { get; set; }
 
         /// <summary>
@@ -440,6 +500,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the permissions should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnorePermissions { get; set; }
 
         /// <summary>
@@ -447,6 +508,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the quoted identifiers setting should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreQuotedIdentifiers { get; set; } = true;
 
         /// <summary>
@@ -454,6 +516,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the role membership of logins should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreRoleMembership { get; set; }
 
         /// <summary>
@@ -461,6 +524,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the amount of time that SQL Server retains the route in the routing table should be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreRouteLifetime { get; set; } = true;
 
         /// <summary>
@@ -468,6 +532,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the semi-colons between T-SQL statements will be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreSemicolonBetweenStatements { get; set; } = true;
 
         /// <summary>
@@ -475,6 +540,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the table options will be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreTableOptions { get; set; }
 
         /// <summary>
@@ -482,6 +548,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the table partition options will be ignored or updated when you publish to a database. This option applies only to Azure Synapse Analytics SQL pool (data warehouse) databases.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreTablePartitionOptions { get; set; }
 
         /// <summary>
@@ -489,6 +556,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the user settings objects will be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreUserSettingsObjects { get; set; }
 
         /// <summary>
@@ -496,6 +564,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in white space will be ignored or updated when you publish to a database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool IgnoreWhitespace { get; set; } = true;
 
         /// <summary>
@@ -503,6 +572,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the value of the WITH NOCHECK clause for check constraints will be ignored or updated when you publish.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreWithNocheckOnCheckConstraints { get; set; }
 
         /// <summary>
@@ -510,6 +580,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the value of the WITH NOCHECK clause for foreign keys will be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IgnoreWithNocheckOnForeignKeys { get; set; }
 
         /// <summary>
@@ -517,6 +588,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Include all composite elements as part of a single publish operation.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IncludeCompositeObjects { get; set; }
 
         /// <summary>
@@ -524,6 +596,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether transactional statements should be used where possible when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? IncludeTransactionalScripts { get; set; }
 
         /// <summary>
@@ -531,6 +604,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the long running command timeout in seconds when executing queries against SQL Server. Use 0 to wait indefinitely.")]
         [DefaultValue(typeof(int?), null)]
+        [PropertyCmdArgument]
         public int? LongRunningCommandTimeout { get; set; }
 
         /// <summary>
@@ -538,6 +612,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies that publish should always drop and re-create an assembly if there is a difference instead of issuing an ALTER ASSEMBLY statement.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? NoAlterStatementsToChangeClrTypes { get; set; }
 
         /// <summary>
@@ -545,6 +620,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether a new file is also created when a new FileGroup is created in the target database.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool PopulateFilesOnFileGroups { get; set; } = true;
 
         /// <summary>
@@ -552,6 +628,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether the schema is registered with the database server.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? RegisterDataTierApplication { get; set; }
 
         /// <summary>
@@ -559,6 +636,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether DeploymentPlanExecutor contributors should be run when other operations are executed.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? RunDeploymentPlanExecutors { get; set; }
 
         /// <summary>
@@ -566,6 +644,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the database collation should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? ScriptDatabaseCollation { get; set; }
 
         /// <summary>
@@ -573,6 +652,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether differences in the database compatibility should be ignored or updated when you publish to a database.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? ScriptDatabaseCompatibility { get; set; }
 
         /// <summary>
@@ -580,6 +660,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether target database properties should be set or updated as part of the publish action.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool ScriptDatabaseOptions { get; set; } = true;
 
         /// <summary>
@@ -587,6 +668,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether statements are generated in the publish script to verify that the database name and server name match the names specified in the database project.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? ScriptDeployStateChecks { get; set; }
 
         /// <summary>
@@ -594,6 +676,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Controls whether size is specified when adding a file to a filegroup.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? ScriptFileSize { get; set; }
 
         /// <summary>
@@ -601,6 +684,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("At the end of publish all of the constraints will be verified as one set, avoiding data errors caused by a check or foreign key constraint in the middle of publish. If set to False, your constraints are published without checking the corresponding data.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool ScriptNewConstraintValidation { get; set; } = true;
 
         /// <summary>
@@ -608,6 +692,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Include refresh statements at the end of the publish script.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool ScriptRefreshModule { get; set; } = true;
 
         /// <summary>
@@ -615,6 +700,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies how elements are stored when building the database model. For performance reasons the default is InMemory. For large databases, File backed storage is required.")]
         [DefaultValue(StorageValue.Memory)]
+        [PropertyCmdArgument]
         public StorageValue Storage { get; set; } = StorageValue.Memory;
 
         /// <summary>
@@ -622,6 +708,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether errors encountered during publish verification should be treated as warnings. The check is performed against the generated deployment plan before the plan is executed against your target database. Plan verification detects problems such as the loss of target-only objects (such as indexes) that must be dropped to make a change. Verification will also detect situations where dependencies (such as a table or view) exist because of a reference to a composite project, but do not exist in the target database. You might choose to do this to get a complete list of all issues, instead of having the publish action stop on the first error.")]
         [DefaultValue(typeof(bool?), null)]
+        [PropertyCmdArgument]
         public bool? TreatVerificationErrorsAsWarnings { get; set; }
 
         /// <summary>
@@ -629,6 +716,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether warnings should be generated when differences are found in objects that cannot be modified, for example, if the file size or file paths were different for a file.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool UnmodifiableObjectWarnings { get; set; } = true;
 
         /// <summary>
@@ -636,6 +724,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether collation compatibility is verified.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool VerifyCollationCompatibility { get; set; } = true;
 
         /// <summary>
@@ -643,7 +732,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether checks should be performed before publishing that will stop the publish action if issues are present that might block successful publishing. For example, your publish action might stop if you have foreign keys on the target database that do not exist in the database project, and that causes errors when you publish.")]
         [DefaultValue(true)]
+        [PropertyCmdArgument]
         public bool VerifyDeployment { get; set; } = true;
-
     }
 }

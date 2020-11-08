@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    public struct DeployParameters : ISqlPackageParameters
+    public class DeploymentParameters : ISqlPackageParameters
     {
         private string toolsVersion;
         private bool? diagnostics;
@@ -21,7 +21,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the action to be performed.")]
         [DefaultValue(typeof(DacActionValue), nameof(DacActionValue.Publish))]
-        public DacActionValue Action { get => DacActionValue.Publish; set=> this.ToolsVersion = this.ToolsVersion; }
+        public virtual DacActionValue Action { get ; set; }
 
         
         /// <summary>
@@ -233,7 +233,7 @@ namespace Microsoft.SqlDataTools.Model
         /// Specifies a name value pair for an action-specific property;{PropertyName}={Value}. Refer to the help for a specific action to see that action's property names. Example: sqlpackage.exe /Action:Publish /?.
         /// </summary>
         [Description("Specifies a name value pair for an action-specific property;{PropertyName}={Value}. Refer to the help for a specific action to see that action's property names. Example: sqlpackage.exe /Action:Publish /?.")]
-        public  ISqlPackageProperties Properties { get; set; }
+        public  DeploymentProperties Properties { get; set; }
 
         /// <summary>
         /// Specifies a name value pair for an action-specific variable;{VariableName}={Value}. The DACPAC file contains the list of valid SQLCMD variables. An error results if a value is not provided for every variable.

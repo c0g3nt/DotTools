@@ -9,7 +9,7 @@ namespace Microsoft.SqlDataTools.Model
     public interface ISqlPackageParameters
     {
         string ToolsVersion { get; set; } 
-        ISqlPackageProperties Properties { get; set; }
+        DeploymentProperties Properties { get; set; }
         IEnumerable<SqlCmdVariable> Variables { get; set; }
 
         /// <summary>
