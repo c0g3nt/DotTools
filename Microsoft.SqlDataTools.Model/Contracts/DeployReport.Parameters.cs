@@ -12,8 +12,9 @@ namespace Microsoft.SqlDataTools.Model
     {
 
         private DacActionValue action;
-        public override DacActionValue Action { get => DacActionValue.DeployReport; set => action = value; }
-
+        public override DacActionValue Action { 
+            get => DacActionValue.DeployReport; 
+            set => action = value; }
 
         /// <summary>
         /// Specifies the file path where the output files are generated.
@@ -24,9 +25,17 @@ namespace Microsoft.SqlDataTools.Model
         public string OutputPath { get; set; }
 
         /// <summary>
-        /// Specifies a target file (that is, a .dacpac file) to be used as the target of action instead of a database. If this parameter is used, no other target parameter shall be valid. This parameter shall be invalid for actions that only support database targets.
+        /// Specifies a target file (that is, a .dacpac file) 
+        /// to be used as the target of action instead of a database. 
+        /// If this parameter is used, no other target parameter shall 
+        /// be valid. This parameter shall be invalid for actions that 
+        /// only support database targets.
         /// </summary>
-        [Description("Specifies a target file (that is, a .dacpac file) to be used as the target of action instead of a database. If this parameter is used, no other target parameter shall be valid. This parameter shall be invalid for actions that only support database targets.")]
+        [Description("Specifies a target file (that is, a .dacpac file) " +
+            "to be used as the target of action instead of a database. " +
+            "If this parameter is used, no other target parameter shall " +
+            "be valid. This parameter shall be invalid for actions that " +
+            "only support database targets.")]
         [DefaultValue(typeof(string), null)]
         public string TargetFile { get; set; }
 

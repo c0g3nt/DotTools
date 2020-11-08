@@ -14,8 +14,5 @@ namespace Microsoft.SqlDataTools.Model
         public string Name { get; set; }
         public string Value { get; set; }
 
-
-
-
     }
 }

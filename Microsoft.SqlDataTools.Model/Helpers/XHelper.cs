@@ -10,16 +10,31 @@ namespace Microsoft.SqlDataTools.Model
 {
     internal static class XHelper
     {
-        public static IEnumerable<XElement> PropertiesToProfileXElements(object input)
+        public static IEnumerable<XElement> PropertiesToProfileXElements(
+            object input)
         {
             if (input == null)
                 return null;
 
             return input.GetType().
                 GetProperties().
-                Select(p => new { Prop = p, Value = p.GetValue(input) }).
-                Where(elem => SerializationHelper.ShouldSerializeProperty(input, elem.Prop, elem.Value)).
-                Select(elem => new XElement(XName.Get(elem.Prop.Name), elem.Value)).
+                Select(p => new 
+                { 
+                    Prop = p, 
+                    Value = p.GetValue(input) 
+                }).
+                Where(
+                    elem => SerializationHelper.
+                            ShouldSerializeProperty(
+                                input, 
+                                elem.Prop, 
+                                elem.Value,
+                                SerializationHelper.
+                                SerializationType.X)).
+                Select(
+                    elem => new XElement(
+                                XName.Get(elem.Prop.Name), 
+                                elem.Value)).
                 Where(elem => elem.IsEmpty == false);
         }  
     }

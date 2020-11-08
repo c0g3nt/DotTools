@@ -13,14 +13,27 @@ namespace Microsoft.SqlDataTools.Model
         {
             if (variables == null)
                 return XElement.EmptySequence;
-            return variables.Select(variab => variab.AsXElement());
+
+            return variables.
+                Select(variab => variab.AsXElement());
 
         }
-        public static  XElement AsXElement(this SqlCmdVariable sqlCmdVariable)
+        public static  XElement AsXElement(
+            this SqlCmdVariable sqlCmdVariable)
         {
-            var elem = new XElement(XName.Get("SqlCmdVariable"));
-            elem.Add(new XAttribute(XName.Get("Include"), sqlCmdVariable.Name));
-            elem.Add(new XElement(XName.Get("Value"), sqlCmdVariable.Value));
+            var elem = 
+                new XElement(XName.Get("SqlCmdVariable"));
+
+            elem.Add(
+                new XAttribute(
+                    XName.Get("Include"), 
+                    sqlCmdVariable.Name));
+
+            elem.Add(
+                new XElement(
+                    XName.Get("Value"), 
+                    sqlCmdVariable.Value));
+
             return elem;
         }
         public static  string AsCommandLineArgument(
@@ -33,10 +46,11 @@ namespace Microsoft.SqlDataTools.Model
                 sqlCmdVariable.Value);
         }
 
-        public static SqlCmdVariable Parse(
+        public static SqlCmdVariable Load(
             this SqlCmdVariable sqlCmdVariable,
             XElement xElement)
         {
+
             if (xElement == null)
                 return sqlCmdVariable;
 
@@ -45,12 +59,24 @@ namespace Microsoft.SqlDataTools.Model
                     "The provided element does not have a valid signature");
 
             XAttribute xattrInclude;
-            if ((xattrInclude = xElement.Attribute("Include")) == null)
+
+            if (
+                (
+                xattrInclude = 
+                    xElement.Attribute("Include")
+                ) == null
+               )
                 throw new ArgumentOutOfRangeException(
                     "The XElement doesnot have an Include attribute");
 
             XElement xelemValue;
-            if ((xelemValue = xElement.Element("Value")) == null)
+
+            if (
+                (
+                xelemValue = 
+                    xElement.Element("Value")
+                ) == null
+               )
                 throw new ArgumentOutOfRangeException(
                     "The XElement does not have a value element");
 

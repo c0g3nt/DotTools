@@ -161,7 +161,8 @@ namespace Microsoft.SqlDataTools.Model
         [Description("Defines the edition of an Azure SQL Database.")]
         [DefaultValue(DatabaseEditionValue.Default)]
         [SqlPackageCmdProp]
-        public DatabaseEditionValue DatabaseEdition { get; set; } = DatabaseEditionValue.Default;
+        public DatabaseEditionValue DatabaseEdition { get; set; } = 
+            DatabaseEditionValue.Default;
 
         /// <summary>
         /// Specifies the database lock timeout in seconds when 

@@ -11,13 +11,18 @@ namespace Microsoft.SqlDataTools.Model
     {
         public static T LoadXml<T>(
             this T sqlPackageParmas, 
-            XDocument xdoc) where T : ISqlPackageParameters
+            XDocument xdoc) 
+            where T : ISqlPackageParameters
         {
             if (xdoc == null)
                 return sqlPackageParmas;
 
-            var projelem = xdoc.Element("Project");
-            var propgroupelem = projelem.Element("PropertyGroup");
+            var projelem = 
+                xdoc.Element("Project");
+
+            var propgroupelem = 
+                projelem.Element("PropertyGroup");
+
             if (propgroupelem != null)
             {
                 var paramprops = 
@@ -52,23 +57,31 @@ namespace Microsoft.SqlDataTools.Model
                     else if (propprops.ContainsKey(itemname))
                     {
                         prop = propprops[itemname];
-                        assignmenttarget = sqlPackageParmas.Properties;
+                        assignmenttarget = 
+                            sqlPackageParmas.Properties;
                     }
                     else
                         continue;
 
-                    prop.SetValue(sqlPackageParmas, item.Value);
+                    prop.SetValue(
+                        sqlPackageParmas, 
+                        item.Value);
                 }
             }
 
-            var itemgroupelem = projelem.Element("ItemGroup");
+            var itemgroupelem = 
+                projelem.Element("ItemGroup");
+
             if (itemgroupelem == null)
             {
                 var vars = new List<SqlCmdVariable>();
 
-                foreach (var item in itemgroupelem.Elements("SqlCmdVariable"))
+                foreach (var item in itemgroupelem.
+                                     Elements("SqlCmdVariable"))
                 {
-                    vars.Add(new SqlCmdVariable().Parse(item));
+                    vars.
+                        Add(new SqlCmdVariable().
+                        Load(item));
                 }
             }
 
@@ -77,7 +90,8 @@ namespace Microsoft.SqlDataTools.Model
 
         public static XDocument AsXDocument(
             this ISqlPackageParameters deployReportParameters,
-            FormattingOptions options = FormattingOptions.IgnoreDefaults)
+            FormattingOptions options = 
+                FormattingOptions.IgnoreDefaults)
         {
             if (deployReportParameters == null)
                 return null;
@@ -93,26 +107,33 @@ namespace Microsoft.SqlDataTools.Model
 
         public static XElement AsXElement(
         this ISqlPackageParameters deployReportParameters,
-        FormattingOptions options = FormattingOptions.IgnoreDefaults)
+        FormattingOptions options = 
+            FormattingOptions.IgnoreDefaults)
         {
             if (deployReportParameters == null)
                 return null;
 
-            XElement root = new XElement(XName.Get("Project"));
+            XElement root = 
+                new XElement(XName.Get("Project"));
 
 
             XAttribute toolsversAttr =
                 new XAttribute(
-                    XName.Get(nameof(DeployReportParameters.ToolsVersion)),
+                    XName.Get(
+                        nameof(
+                            DeployReportParameters.
+                            ToolsVersion)),
                     deployReportParameters.ToolsVersion);
 
             root.Add(toolsversAttr);
 
-            XElement propgroup = new XElement(XName.Get("PropertyGroup"));
+            XElement propgroup = 
+                new XElement(XName.Get("PropertyGroup"));
 
             root.Add(propgroup);
 
-            HashSet<string> exclusions = new HashSet<string>(new string[]
+            HashSet<string> exclusions = 
+                new HashSet<string>(new string[]
             {
                 nameof(ISqlPackageParameters.ToolsVersion),
                 nameof(ISqlPackageParameters.Properties),
@@ -130,11 +151,14 @@ namespace Microsoft.SqlDataTools.Model
                 XHelper.PropertiesToProfileXElements(
                     deployReportParameters.Properties));
 
-            XElement itemgroup = new XElement(XName.Get("ItemGroup"));
+            XElement itemgroup = 
+                new XElement(XName.Get("ItemGroup"));
 
             root.Add(itemgroup);
 
-            itemgroup.Add(deployReportParameters.Variables.AsXElements());
+            itemgroup.Add(
+                deployReportParameters.Variables.
+                AsXElements());
 
             return root;
         }
@@ -166,7 +190,8 @@ namespace Microsoft.SqlDataTools.Model
         public static void SaveXml(
             this ISqlPackageParameters param,
            string filename,
-           FormattingOptions options = FormattingOptions.IgnoreDefaults) =>
+           FormattingOptions options = 
+            FormattingOptions.IgnoreDefaults) =>
             param.
             AsXDocument(options).
             Save(filename);

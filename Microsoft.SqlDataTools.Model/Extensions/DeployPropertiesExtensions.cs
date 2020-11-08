@@ -13,10 +13,12 @@ namespace Microsoft.SqlDataTools.Model
             this DeploymentProperties deploymentProperties)
         {
             if (deploymentProperties == null)
-                return Enumerable.Empty<XElement>();
+                return Enumerable.
+                    Empty<XElement>();
 
             return XHelper.
-                PropertiesToProfileXElements(deploymentProperties);
+                PropertiesToProfileXElements(
+                    deploymentProperties);
         }
 
         public static IEnumerable<string> AsSqlCmdArgs(
@@ -24,10 +26,12 @@ namespace Microsoft.SqlDataTools.Model
             bool preferShortForm = true)
         {
             if(deploymentProperties == null)
-                return Enumerable.Empty<string>();
+                return Enumerable.
+                    Empty<string>();
 
             return CmdHelper.
-                PropertiesToSqlCmdArgs(deploymentProperties);
+                PropertiesToSqlCmdArgs(
+                    deploymentProperties);
         }
     }
 }

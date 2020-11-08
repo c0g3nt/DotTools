@@ -21,7 +21,8 @@ namespace Microsoft.SqlDataTools.Model
                     SerializationHelper.ShouldSerializeProperty(
                         input,
                         elem.Prop,
-                        elem.Value)).
+                        elem.Value,
+                        SerializationHelper.SerializationType.CmdArg)).
                 Select(elem => new
                 {
                     Name = elem.Prop.Name,

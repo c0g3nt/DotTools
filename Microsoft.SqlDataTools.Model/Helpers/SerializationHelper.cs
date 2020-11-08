@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.SqlDataTools.Model.Annotation;
+using Microsoft.SqlDataTools.Model.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -7,15 +9,28 @@ namespace Microsoft.SqlDataTools.Model
 {
     internal static class SerializationHelper
     {
-        public static bool ShouldSerializeProperty(object input, PropertyInfo prop, object value)
+        public enum SerializationType
+        {
+            X,
+            CmdArg
+        }
+        public static bool ShouldSerializeProperty(
+            object input, 
+            PropertyInfo prop, 
+            object value,
+            SerializationType serializationType)
         {
             return !(
                 input == null ||
                 prop == null ||
                 value == null ||
-                typeof(DeploymentProperties).IsAssignableFrom(prop.PropertyType) ||
-                typeof(IEnumerable<SqlCmdVariable>).IsAssignableFrom(prop.PropertyType) ||
-                DefaultValueHelper.IsDefault(value, prop)
+                (   serializationType == SerializationType.X && 
+                    prop.GetCustomAttribute<XIgnoreAttribute>() != null
+                ) ||
+                (   serializationType == SerializationType.CmdArg && 
+                    prop.GetCustomAttribute<CmdArgIgnoreAttribute>() != null
+                ) ||
+                value.IsDefault(prop)
                 );
         }
     }

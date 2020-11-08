@@ -44,7 +44,9 @@ namespace Microsoft.SqlDataTools.Model
             "Defaults to False.")]
         [DefaultValue(typeof(bool?), "false")]
         [SqlPackageCmdParam(ShortForm ="d")]
-        public bool? Diagnostics { get => diagnostics ?? false; set => diagnostics = value; }
+        public bool? Diagnostics { 
+            get => diagnostics ?? false; 
+            set => diagnostics = value; }
 
         /// <summary>
         /// Specifies a file to store diagnostic logs.
@@ -62,7 +64,10 @@ namespace Microsoft.SqlDataTools.Model
             "running against a database. The default value is 8.")]
         [DefaultValue(typeof(int?), "8")]
         [SqlPackageCmdParam(ShortForm ="mp")]
-        public int? MaxParallelism { get => maxParallelism ?? 8; set => maxParallelism = value; }
+        public int? MaxParallelism { 
+            get => maxParallelism ?? 8; 
+            set => maxParallelism = value; }
+
         /// <summary>
         /// Specifies if sqlpackage.exe should overwrite existing files. 
         /// Specifying false causes sqlpackage.exe to abort action if an existing 
@@ -73,7 +78,10 @@ namespace Microsoft.SqlDataTools.Model
             "is encountered. Default value is True.")]
         [DefaultValue(typeof(bool?), "true")]
         [SqlPackageCmdParam(ShortForm ="of")]
-        public bool? OverwriteFiles { get => overwriteFiles ?? true; set => overwriteFiles = value; }
+        public bool? OverwriteFiles { 
+            get => overwriteFiles ?? true; 
+            set => overwriteFiles = value; }
+
         /// <summary>
         /// Specifies the file path to a DAC Publish Profile. 
         /// The profile defines a collection of properties and variables to use when generating outputs.
@@ -82,6 +90,7 @@ namespace Microsoft.SqlDataTools.Model
             "defines a collection of properties and variables to use when generating outputs.")]
         [DefaultValue(typeof(string), null)]
         [SqlPackageCmdParam(ShortForm ="pr")]
+        [XIgnore]
         public string Profile { get; set; }
 
         /// <summary>
@@ -90,7 +99,9 @@ namespace Microsoft.SqlDataTools.Model
         [Description("Specifies whether detailed feedback is suppressed. Defaults to False.")]
         [DefaultValue(typeof(bool?), "false")]
         [SqlPackageCmdParam(ShortForm ="q")]
-        public bool? Quiet { get => quiet ?? false; set => quiet = value; }
+        public bool? Quiet { 
+            get => quiet ?? false; 
+            set => quiet = value; }
 
         /// <summary>
         /// Specifies a valid SQL Server/Azure connection string to the source database. 
@@ -117,7 +128,9 @@ namespace Microsoft.SqlDataTools.Model
         [Description("Specifies if SQL encryption should be used for the source database connection.")]
         [DefaultValue(typeof(bool?), "false")]
         [SqlPackageCmdParam(ShortForm = "sec")]
-        public bool? SourceEncryptConnection { get => sourceEncryptConnection ?? false; set => sourceEncryptConnection = value; }
+        public bool? SourceEncryptConnection { 
+            get => sourceEncryptConnection ?? false; 
+            set => sourceEncryptConnection = value; }
 
         /// <summary>
         /// Specifies a source file to be used as the source of action instead of a database. 
@@ -233,7 +246,8 @@ namespace Microsoft.SqlDataTools.Model
         /// that this value be greater than or equal to 30 seconds.
         /// </summary>
         [Description("Specifies the timeout for establishing a connection to the target " +
-            "database in seconds. For Azure AD, it is recommended that this value be greater than or equal to 30 seconds.")]
+            "database in seconds. For Azure AD, it is recommended that this " +
+            "value be greater than or equal to 30 seconds.")]
         [DefaultValue(typeof(int?), null)]
         [SqlPackageCmdParam(ShortForm = "tt")]
         public int? TargetTimeout { get; set; }
@@ -312,6 +326,8 @@ namespace Microsoft.SqlDataTools.Model
             "property;{PropertyName}={Value}. Refer to the help for a specific " +
             "action to see that action's property names. " +
             "Example: sqlpackage.exe /Action:Publish /?.")]
+        [XIgnore]
+        [CmdArgIgnore]
         public  DeploymentProperties Properties { get; set; }
 
         /// <summary>
@@ -324,6 +340,8 @@ namespace Microsoft.SqlDataTools.Model
             "variable;{VariableName}={Value}. The DACPAC file contains the " +
             "list of valid SQLCMD variables. An error results if a value " +
             "is not provided for every variable.")]
+        [XIgnore]
+        [CmdArgIgnore]
         public  IEnumerable<SqlCmdVariable> Variables { get; set; }
      
     }
