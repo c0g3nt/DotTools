@@ -25,15 +25,15 @@ namespace Microsoft.SqlDataTools.Model
         /// Specifies the action to be performed.
         /// </summary>
         [Description("Specifies the action to be performed.")]
-        [ShortForm("a")]
-        public DacActionValue Action { get => DacActionValue.DeployReport; }
+        [SqlCmdArgument("a")]
+        public DacActionValue Action { get => DacActionValue.DeployReport; set => this.toolsVersion = this.toolsVersion; }
 
         /// <summary>
         /// Specifies the token based authentication access token to use when connect to the target database.
         /// </summary>
         [Description("Specifies the token based authentication access token to use when connect to the target database.")]
         [DefaultValue(typeof(string), null)]
-        [ShortForm("at")]
+        [SqlCmdArgument("at")]
         public string AccessToken { get; set; }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies whether diagnostic logging is output to the console. Defaults to False.")]
         [DefaultValue(false)]
-        [ShortForm("/d")]
+        [SqlCmdArgument("d")]
         public bool? Diagnostics { get => diagnostics ?? false; set => diagnostics = value; }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies a file to store diagnostic logs.")]
         [DefaultValue(typeof(string), null)]
-        [ShortForm("df")]
+        [SqlCmdArgument("df")]
         public string DiagnosticsFile { get; set; }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8.")]
         [DefaultValue(typeof(int?), "8")]
-        [ShortForm("mp")]
+        [SqlCmdArgument("mp")]
         public int? MaxParallelism { get => maxParallelism ?? 8; set => maxParallelism = value; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the file path where the output files are generated.")]
         [DefaultValue(typeof(string), null)]
-        [ShortForm("op")]
+        [SqlCmdArgument("op")]
         public string OutputPath { get; set; }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies if sqlpackage.exe should overwrite existing files. Specifying false causes sqlpackage.exe to abort action if an existing file is encountered. Default value is True.")]
         [DefaultValue(typeof(bool?), "true")]
-        [ShortForm("of")]
+        [SqlCmdArgument("of")]
         public bool? OverwriteFiles { get => overwriteFiles ?? true; set => overwriteFiles = value; }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the file path to a DAC Publish Profile. The profile defines a collection of properties and variables to use when generating outputs.")]
         [DefaultValue(typeof(string), null)]
-        [ShortForm("pr")]
+        [SqlCmdArgument("pr")]
         public string Profile { get; set; }
 
         /// <summary>

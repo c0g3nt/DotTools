@@ -18,7 +18,7 @@ namespace Microsoft.SqlDataTools.Model
         /// Specifies the action to be performed.
         /// </summary>
         [Description("Specifies the action to be performed.")]
-        public DacActionValue Action { get => DacActionValue.Script; }
+        public DacActionValue Action { get => DacActionValue.Script; set => this.ToolsVersion = this.ToolsVersion; }
 
         /// <summary>
         /// Specifies the token based authentication access token to use when connect to the target database.
@@ -244,6 +244,8 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies a name value pair for an action-specific variable;{VariableName}={Value}. The DACPAC file contains the list of valid SQLCMD variables. An error results if a value is not provided for every variable.")]
         public IEnumerable<SqlCmdVariable> Variables { get; set; }
-
+        string ISqlPackageParameters.ToolsVersion { get; set; }
+        IEnumerable<SqlCmdVariable> ISqlPackageParameters.Variables { get => this.Variables; set=> this.Variables = value; }
+        DacActionValue ISqlPackageParameters.Action { get; set; }
     }
 }
