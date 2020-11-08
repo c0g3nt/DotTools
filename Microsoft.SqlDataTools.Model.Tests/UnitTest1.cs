@@ -31,7 +31,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
                 Variables = variables
             };
             var doc = deployparams.AsXDocument();
-          
+            
             var outputfile = "output.xml";
 
             deployparams.SaveXml(outputfile);
@@ -64,7 +64,7 @@ namespace Microsoft.SqlDataTools.Model.Tests
                 Properties = deployprops,
                 Variables = variables
             };
-            var cmdargs = (deployparams as ISqlPackageParameters).AsCommandLineArguments().ToList();
+            var cmdargs = (deployparams as ISqlPackageParameters).AsSqlPackageCmdArgs().ToList();
             System.Diagnostics.Trace.WriteLine(string.Join(" ",cmdargs));
         }
     }

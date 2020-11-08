@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlDataTools.Model.Annotation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -52,7 +53,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the Client Secret to be used in authenticating against Azure KeyVault, when necessary")]
         [DefaultValue(typeof(string), null)]
-        [ParameterCmdArgument(ShortForm = "secr")]
+        [SqlPackageCmdParam(ShortForm = "secr")]
         public string Secret { get; set; }
 
     }

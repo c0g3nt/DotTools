@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.SqlDataTools.Model.Annotation;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,7 +20,7 @@ namespace Microsoft.SqlDataTools.Model
         /// </summary>
         [Description("Specifies the file path where the output files are generated.")]
         [DefaultValue(typeof(string), null)]
-        [SqlCmdArgument("op")]
+        [SqlPackageCmdArg("op")]
         public string OutputPath { get; set; }
 
         /// <summary>

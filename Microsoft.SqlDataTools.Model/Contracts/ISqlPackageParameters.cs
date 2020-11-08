@@ -20,10 +20,5 @@ namespace Microsoft.SqlDataTools.Model
 
     }
 
-    [Flags]
-    public enum FormattingOptions
-    {
-        IgnoreDefaults,
-        SerializeAllProperties
-    }
+
 }

@@ -65,6 +65,7 @@ namespace Microsoft.SqlDataTools.Model
         Memory
     }
 
+
     public enum EngineVersionValue
     {
         Default,
@@ -137,5 +138,13 @@ namespace Microsoft.SqlDataTools.Model
         ServerRoleMembership, 
         ServerRoles, 
         ServerTriggers
+    }
+
+
+    [Flags]
+    public enum FormattingOptions
+    {
+        IgnoreDefaults,
+        SerializeAllProperties
     }
 }
