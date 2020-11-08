@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    internal static class XHelpers
+    internal static class XHelper
     {
         public static IEnumerable<XElement> PropertiesToProfileXElements(object input)
         {
@@ -18,7 +18,7 @@ namespace Microsoft.SqlDataTools.Model
             return input.GetType().
                 GetProperties().
                 Select(p => new { Prop = p, Value = p.GetValue(input) }).
-                Where(elem => Serialization.ShouldSerializeProperty(input, elem.Prop, elem.Value)).
+                Where(elem => SerializationHelper.ShouldSerializeProperty(input, elem.Prop, elem.Value)).
                 Select(elem => new XElement(XName.Get(elem.Prop.Name), elem.Value)).
                 Where(elem => elem.IsEmpty == false);
         }  

@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using static Microsoft.SqlDataTools.Model.DefaultChecker;
+using static Microsoft.SqlDataTools.Model.DefaultValueHelper;
 
 namespace Microsoft.SqlDataTools.Model.Tests
 {

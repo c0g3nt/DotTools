@@ -15,7 +15,7 @@ namespace Microsoft.SqlDataTools.Model
             if (deploymentProperties == null)
                 return Enumerable.Empty<XElement>();
 
-            return XHelpers.
+            return XHelper.
                 PropertiesToProfileXElements(deploymentProperties);
         }
 
@@ -26,7 +26,7 @@ namespace Microsoft.SqlDataTools.Model
             if(deploymentProperties == null)
                 return Enumerable.Empty<string>();
 
-            return CmdHelpers.
+            return CmdHelper.
                 PropertiesToSqlCmdArgs(deploymentProperties);
         }
     }

@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 namespace Microsoft.SqlDataTools.Model
 {
 
-    public static partial class DefaultChecker
+    public static partial class DefaultValueHelper
     {
         public enum UserDefinedProfileBehavior
         {

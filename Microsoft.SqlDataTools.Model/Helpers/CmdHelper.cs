@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    internal static class CmdHelpers
+    internal static class CmdHelper
     {
         public static IEnumerable<string> PropertiesToSqlCmdArgs(
             object input,
@@ -18,7 +18,7 @@ namespace Microsoft.SqlDataTools.Model
                 GetProperties().
                 Select(p=> new { Prop = p, Value = p.GetValue(input)}).
                 Where(elem=> 
-                    Serialization.ShouldSerializeProperty(
+                    SerializationHelper.ShouldSerializeProperty(
                         input,
                         elem.Prop,
                         elem.Value)).

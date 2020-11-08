@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    internal static class Serialization
+    internal static class SerializationHelper
     {
         public static bool ShouldSerializeProperty(object input, PropertyInfo prop, object value)
         {
@@ -15,7 +15,7 @@ namespace Microsoft.SqlDataTools.Model
                 value == null ||
                 typeof(DeploymentProperties).IsAssignableFrom(prop.PropertyType) ||
                 typeof(IEnumerable<SqlCmdVariable>).IsAssignableFrom(prop.PropertyType) ||
-                DefaultChecker.IsDefault(value, prop)
+                DefaultValueHelper.IsDefault(value, prop)
                 );
         }
     }

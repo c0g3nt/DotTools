@@ -120,14 +120,14 @@ namespace Microsoft.SqlDataTools.Model
             });
 
             propgroup.Add(
-                XHelpers.PropertiesToProfileXElements(
+                XHelper.PropertiesToProfileXElements(
                     deployReportParameters).
                 Where(
                     elem => !exclusions.Contains(
                                 elem.Name.ToString())));
 
             propgroup.Add(
-                XHelpers.PropertiesToProfileXElements(
+                XHelper.PropertiesToProfileXElements(
                     deployReportParameters.Properties));
 
             XElement itemgroup = new XElement(XName.Get("ItemGroup"));
@@ -148,10 +148,10 @@ namespace Microsoft.SqlDataTools.Model
                 return null;
 
             var paramargs =
-                CmdHelpers.PropertiesToSqlCmdArgs(param);
+                CmdHelper.PropertiesToSqlCmdArgs(param);
 
             var propargs =
-                CmdHelpers.PropertiesToSqlCmdArgs(
+                CmdHelper.PropertiesToSqlCmdArgs(
                     param.Properties);
 
             var varargs =
