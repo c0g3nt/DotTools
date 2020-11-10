@@ -88,6 +88,12 @@ namespace Microsoft.SqlDataTools.Model
             return sqlPackageParmas;
         }
 
+        /// <summary>
+        /// Creates an XDocument which is compatible with SqlPackage Profile.
+        /// </summary>
+        /// <param name="deployReportParameters"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static XDocument AsXDocument(
             this ISqlPackageParameters deployReportParameters,
             FormattingOptions options = 
@@ -141,14 +147,14 @@ namespace Microsoft.SqlDataTools.Model
             });
 
             propgroup.Add(
-                XHelper.PropertiesToProfileXElements(
+                XmlHelper.PropertiesToProfileXElements(
                     deployReportParameters).
                 Where(
                     elem => !exclusions.Contains(
                                 elem.Name.ToString())));
 
             propgroup.Add(
-                XHelper.PropertiesToProfileXElements(
+                XmlHelper.PropertiesToProfileXElements(
                     deployReportParameters.Properties));
 
             XElement itemgroup = 
@@ -172,10 +178,10 @@ namespace Microsoft.SqlDataTools.Model
                 return null;
 
             var paramargs =
-                CmdHelper.PropertiesToSqlCmdArgs(param);
+                CommandLineArgumentHelper.PropertiesToSqlCmdArgs(param);
 
             var propargs =
-                CmdHelper.PropertiesToSqlCmdArgs(
+                CommandLineArgumentHelper.PropertiesToSqlCmdArgs(
                     param.Properties);
 
             var varargs =

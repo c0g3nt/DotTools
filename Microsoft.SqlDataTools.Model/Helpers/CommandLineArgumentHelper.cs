@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Microsoft.SqlDataTools.Model
 {
-    internal static class CmdHelper
+    internal static class CommandLineArgumentHelper
     {
         public static IEnumerable<string> PropertiesToSqlCmdArgs(
             object input,
@@ -22,7 +22,7 @@ namespace Microsoft.SqlDataTools.Model
                         input,
                         elem.Prop,
                         elem.Value,
-                        SerializationHelper.SerializationType.CmdArg)).
+                        SerializationHelper.SerializationType.CommandPromptArgument)).
                 Select(elem => new
                 {
                     Name = elem.Prop.Name,

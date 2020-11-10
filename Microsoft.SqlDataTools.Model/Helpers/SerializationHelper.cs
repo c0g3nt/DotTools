@@ -11,8 +11,8 @@ namespace Microsoft.SqlDataTools.Model
     {
         public enum SerializationType
         {
-            X,
-            CmdArg
+            XElement,
+            CommandPromptArgument
         }
         public static bool ShouldSerializeProperty(
             object input, 
@@ -24,10 +24,10 @@ namespace Microsoft.SqlDataTools.Model
                 input == null ||
                 prop == null ||
                 value == null ||
-                (   serializationType == SerializationType.X && 
+                (   serializationType == SerializationType.XElement && 
                     prop.GetCustomAttribute<XIgnoreAttribute>() != null
                 ) ||
-                (   serializationType == SerializationType.CmdArg && 
+                (   serializationType == SerializationType.CommandPromptArgument && 
                     prop.GetCustomAttribute<CmdArgIgnoreAttribute>() != null
                 ) ||
                 value.IsDefault(prop)

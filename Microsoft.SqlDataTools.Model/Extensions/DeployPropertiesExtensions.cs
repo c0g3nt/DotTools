@@ -16,7 +16,7 @@ namespace Microsoft.SqlDataTools.Model
                 return Enumerable.
                     Empty<XElement>();
 
-            return XHelper.
+            return XmlHelper.
                 PropertiesToProfileXElements(
                     deploymentProperties);
         }
@@ -29,7 +29,7 @@ namespace Microsoft.SqlDataTools.Model
                 return Enumerable.
                     Empty<string>();
 
-            return CmdHelper.
+            return CommandLineArgumentHelper.
                 PropertiesToSqlCmdArgs(
                     deploymentProperties);
         }
